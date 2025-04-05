@@ -1,0 +1,111 @@
+<html>  
+    <head>
+        <meta charset="utf-8" />
+        <title id="title">Snake</title>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Підключення Font Awesome -->
+        <link rel="stylesheet" type="text/css" href="Modules/Styles/Snake.css">
+        <link rel="icon" href="Img/Logo/SnakeLogo.jpg" type="image/jpg">
+    </head>
+    <body>
+
+        <div class="game-info">
+            <h1 id="game-title">Snake Game</h1>
+            <div class="score-board">
+                <span id="score">Score: 0</span> 
+                <span id="difficulty">Difficulty: Easy</span>
+                <span id="highscore">Highscore: 0</span>
+            </div>
+        </div>
+
+        <canvas id="gc" width="400" height="400"></canvas>
+
+        <div class="button-container">
+            <button onclick="setDifficulty('easy')" id="easy-btn">Easy</button>
+            <button onclick="setDifficulty('medium')" id="medium-btn">Medium</button>
+            <button onclick="setDifficulty('hard')" id="hard-btn">Hard</button>
+        </div>
+
+        <div class="rules">
+            <h1>Основні правила: </h1>
+            <ol>
+                <li>Керування змійкою:</li>
+                <ul>
+                    <li>Змійка рухається по екрану в одному з чотирьох напрямків (вгору, вниз, вліво, вправо).</li>
+                    <li>Гравець керує змійкою, натискаючи на відповідну клавішу або стрілку.</li>
+                </ul>
+                <li>Їжа:</li>
+                <ul>
+                    <li>На полі з'являється їжа, зазвичай у вигляді квадратів або кружечків.</li>
+                    <li>Кожного разу, коли змійка «з'їдає» їжу, вона стає довшою, а гравець отримує очки.</li>
+                    <li>Їжа з'являється випадковим чином, і гравець має її зібрати.</li>
+                </ul>
+                <li>Зіткнення:</li>
+                <ul>
+                    <li>Гравець програє, якщо змійка зіткнеться зі стіною або своїм власним тілом.</li>
+                    <li>Не можна рухатися назад, щоб уникнути зіткнення з частинами змійки.</li>
+                </ul>
+                <li>Ріст змійки:</li>
+                <ul>
+                    <li>Кожного разу, коли змійка їсть їжу, її довжина збільшується на один блок.</li>
+                    <li>Змійка стає все довшою, що ускладнює управління.</li>
+                </ul>
+                <li>Кінець гри:</li>
+                <ul>
+                    <li>Гра закінчується, коли змійка вдариться об стіну або зіткнеться з собою.</li>
+                </ul>
+            </ol>
+        </div>
+
+        <div class="difficulty-text">
+            <h1>Рівні Складності: </h1>
+            <ol>
+                <li>Легкий: </li>
+                <ul>
+                    <li>Швидкість: Повільна;</li>
+                </ul>
+                <li>Середній: </li>
+                <ul>
+                    <li>Швидкіть: Нормальна;</li>
+                </ul>
+                <li>Важкий:</li>
+                <ul>
+                    <li>Швидкість: Швидка;</li>
+                </ul>
+            </ol>
+        </div>
+
+            <button class="reset-btn" onclick="resetHighscore()" id="reset-highscore-btn">Reset Highscore</button>
+            <button class="theme-toggle-btn" onclick="toggleTheme()" id="theme-toggle-btn">Light theme</button>
+            <button class="exit-button" id="exit-btn">Exit</button> 
+
+        <button class="translate-btn" onclick="toggleLanguage()">
+            <i class="fas fa-globe"></i> <span id="translate-btn-text">Translate</span>
+        </button>
+
+        <div id="language-list" class="language-list hidden">
+            <button onclick="changeLanguage('en')" id="english-btn">English</button>
+            <button onclick="changeLanguage('ua')" id="ukrainian-btn">Українська</button>
+        </div>
+
+        <!--Main Scripts-->
+        <script src="Modules/Snake/Scripts/System/Game.js"></script>
+        <script src="Modules/Snake/Scripts/System/Updates.js"></script>
+        <script src="Modules/Snake/Scripts/System/Difficulty.js"></script>
+        <script src="Modules/Snake/Scripts/System/Restart.js"></script>
+
+        <!--Buttons Scripts-->
+        <script src="Modules/Snake/Scripts/Buttons/Reset Highscore.js"></script>
+        <script src="Modules/Snake/Scripts/Buttons/Theme.js"></script>
+        <script src="Modules/Snake/Scripts/Buttons/Translate.js"></script>
+        <script src="Modules/Snake/Scripts/Buttons/Exit.js"></script>
+
+        <div id="game-over" class="hidden">
+            <div class="modal-content">
+                <h1 id="game-over-title">Game Over!</h1>
+                <p id="game-over-text">Unfortunately, you lost. Would you like to play again?</p>
+                <button onclick="restartGame()" id="restart-btn">Restart</button>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,124 @@
+<html>
+    <head>
+        <head>
+            <meta charset="utf-8" />
+            <title>Flying Dragon</title>
+            <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="Modules/Styles/Flying-Dragon.css">
+            <link rel="icon" href="Img/Logo/Flying-Dragon.jpeg" type="image/jpg">
+        </head>
+        <body>
+            <div class="container">
+                <canvas id="canvas" width="1000" height="550"></canvas>
+            </div>
+            <button id="exit-btn">Exit</button> 
+            <script>
+                var $canvas, $ctx;
+                var $width, $height;
+                var $bdImage;
+                var $bdMoveX = 1045;
+                var $dragon=[];
+                var $mouseMoveX = 0;
+                var $mouseMoveY = 0;
+
+                function drawCanvas() {
+                    clear();
+
+                    $bdMoveX -= 4;
+                    if($bdMoveX <= 0) {
+                        $bdMoveX = 1045;
+                    }
+                    $ctx.drawImage($bdImage, 0 + $bdMoveX, 0, 1000, 940, 0, 0, $width, $height);
+
+                    $dragon.col++;
+                    if ($dragon.col >= 9) {
+                        $dragon.col = 0;
+                    }
+                    $ctx.drawImage($dragon.image, ($dragon.col*$dragon.w), ($dragon.row*$dragon.h), $dragon.w, $dragon.h, ($dragon.x - $dragon.w/2), ($dragon.y - $dragon.h/2), $dragon.w, $dragon.h);
+
+                    if ($mouseMoveX > $dragon.x) {
+                        $dragon.x += 5;
+                    }
+                    if ($mouseMoveY > $dragon.y) {
+                        $dragon.y += 5;
+                    }
+                    if ($mouseMoveX < $dragon.x) {
+                        $dragon.x -= 5;
+                    }
+                    if ($mouseMoveY < $dragon.y) {
+                        $dragon.y -= 5;
+                    }
+                }
+                function clear() {
+                    $ctx.clearRect(0, 0, $width, $height);
+                }
+                function startLoad(){
+                    $bdImage = new Image();
+                    $bdImage.src = 'Img/Games/Fying-Dragon/hell.jpg';
+                    $bdImage.onload = function() {};  
+                    
+                    var $dragonImage = new Image();
+                    $dragonImage.src = 'Img/Games/Fying-Dragon/dragon.gif';
+                    $dragonImage.onload = function() {};
+
+                    $dragon.image=$dragonImage;
+                    $dragon.x=500;
+                    $dragon.y=300;
+                    $dragon.w=75;
+                    $dragon.h=70;
+                    $dragon.row=4;
+                    $dragon.col=0;
+
+                    $mouseMoveX=500;
+                    $mouseMoveY=500;
+                }
+                $(function(){
+                    $canvas = document.getElementById('canvas');
+                    $ctx = $canvas.getContext('2d');
+
+                    $width = $canvas.width;
+                    $height = $canvas.height;
+
+                    startLoad();
+                    drawCanvas();
+
+                    $('#canvas').mousemove(function($e) {
+                        var $mouseX = $e.offsetX || 0;
+                        var $mouseY = $e.offsetY || 0;
+
+                        $mouseMoveX = $mouseX;
+                        $mouseMoveY = $mouseY;
+
+                        if ($mouseX > $dragon.x && Math.abs($mouseY-$dragon.y) < $dragon.w/2) {
+                            $dragon.row = 0;
+                        } else if ($mouseX < $dragon.x && Math.abs($mouseY-$dragon.y) < $dragon.w/2) {
+                            $dragon.row = 4;
+                        } else if ($mouseY > $dragon.y && Math.abs($mouseX-$dragon.x) < $dragon.h/2) {
+                            $dragon.row = 2;
+                        } else if ($mouseY < $dragon.y && Math.abs($mouseX-$dragon.x) < $dragon.h/2) {
+                            $dragon.row = 6;
+                        } else if ($mouseY < $dragon.y && $mouseX < $dragon.x) {
+                            $dragon.row = 5;
+                        } else if ($mouseY < $dragon.y && $mouseX > $dragon.x) {
+                            $dragon.row = 7;
+                        } else if ($mouseY > $dragon.y && $mouseX < $dragon.x) {
+                            $dragon.row = 3;
+                        } else if ($mouseY > $dragon.y && $mouseX > $dragon.x) {
+                            $dragon.row = 1;
+                        }
+                    });
+
+                    setInterval(drawCanvas, 30);
+                });
+                
+                document.getElementById('exit-btn').addEventListener('click', function() {
+                // Перехід на файл (наприклад, PDF або інший файл)
+                window.location.pathname = 'Main-menu.html';  // Вкажіть шлях до вашого файлу
+
+                // Закриття поточної вкладки
+                window.close();
+                });
+            </script>
+        </body>
+    </head>
+</html>
