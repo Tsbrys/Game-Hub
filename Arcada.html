@@ -11,6 +11,21 @@
             <canvas id="canvas" width="900" height="650"></canvas>
         </div>
 
+        <div id="difficulty-selection" class="difficulty-selection">
+            <h2>Select Difficulty</h2>
+            <button class="difficulty-btn" data-speed="5">Easy</button>
+            <button class="difficulty-btn" data-speed="7">Medium</button>
+            <button class="difficulty-btn" data-speed="10">Hard</button>
+        </div>
+
+        <div style="display: flex;">            
+            <div id="stats">
+              <h3>Рекорди</h3>
+              <p>Найкращий час: <span id="best-time">00:00</span></p>
+              <p>Найбільше очок: <span id="best-points">0</span></p>
+            </div>
+        </div>
+
         <div id="game-over" class="game-over hidden">
             <h1>Game Over</h1>
             <p>Your score: <span id="final-score">0</span></p>
