@@ -6,13 +6,19 @@ body {
     padding: 0px;
     background-color:#bababa;
 }
+
 .container {
-    margin: 20px auto;
+    margin: 0 auto;
     overflow: hidden;
     position: relative;
-    width: 800px;
-    height: 550px;
+    width: 900px; /* змінено ширину */
+    height: 650px; /* змінено висоту */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Центрує по вертикалі на всю висоту вікна */
 }
+
 #canvas{
     position:relative;
     background-color: black;
@@ -34,4 +40,77 @@ body {
 
 .exit-button:hover {
     background-color: #d32f2f;
+}
+
+/*Game Over*/
+.game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgb(79, 77, 77);
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    color: #fff;
+    z-index: 10;
+    box-shadow: 0 0 20px #000;
+}
+
+.game-over h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.game-over p {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+#restart-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #28a745;
+    border: none;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#restart-btn:hover {
+    background-color: #218838;
+}
+
+.hidden {
+    display: none;
+}
+
+/*Difficulty*/
+.difficulty-selection {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #4f4d4d;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    color: #fff;
+    z-index: 20;
+    box-shadow: 0 0 20px #000;
+}
+
+.difficulty-btn {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.difficulty-btn:hover {
+    background-color: #0056b3;
 }
