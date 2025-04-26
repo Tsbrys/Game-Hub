@@ -6,6 +6,8 @@ var colors = ['#9d9d9d', '#f80207', '#feff01', '#0072ff', '#fc01fc', '#03f303'];
 var keyLeft=false, keyRight=false;
 var gamePoints = 0;
 var gameTimer=0;
+var ballSpeed = 7;
+var difficultyName = 'Medium';
 
 function drawCanvas() {
     clear();
@@ -74,16 +76,36 @@ function drawCanvas() {
 
     ctx.font = '16px Verdana';
     ctx.fillStyle = '#fff';
+
     gameMin = Math.floor(gameTimer /  60);
     gameSec = gameTimer % 60;
+
     if (gameMin < 10) gameMin = "0" + gameMin;
     if (gameSec < 10) gameSec = "0" + gameSec;
+
+    switch (difficultyName) {
+        case 'Easy':
+            ctx.fillStyle = '#28a745'; // зелений
+            break;
+        case 'Medium':
+            ctx.fillStyle = '#ffc107'; // помаранчевий
+            break;
+        case 'Hard':
+            ctx.fillStyle = '#dc3545'; // червоний
+            break;
+        default:
+            ctx.fillStyle = '#fff';
+    }
+
     ctx.fillText('Time: ' + gameMin + ':' + gameSec, 600, 470);
     ctx.fillText('Points: ' + gamePoints, 600, 500);
+    ctx.fillText('Difficulty: ' + difficultyName, 600, 530);
 }
+
 function clear() {
     ctx.clearRect(0, 0, width, height);
 } 
+
 function startLoad(){
     padImage = new Image();
     padImage.src = 'Img/Games/Arcada/padd.png';
@@ -99,7 +121,7 @@ function startLoad(){
     oBall.y=height-oPadd.h-20;
     oBall.r=10;
     oBall.dx = 0.5;
-    oBall.dy = -7;
+    oBall.dy = -ballSpeed;
 
     brow=6;
     bcol=8;
@@ -115,9 +137,11 @@ function startLoad(){
         }
     }
 }
+
 function countTimer() {
     gameTimer++;
 }
+
 $(function(){
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
@@ -125,8 +149,38 @@ $(function(){
     width = canvas.width;
     height = canvas.height;
 
-    startLoad();
-    drawCanvas();
+    $('.difficulty-btn').click(function() {
+        var selectedSpeed = $(this).data('speed');
+        ballSpeed = selectedSpeed;
+    
+        // Зберегти ім'я складності для виводу
+        switch (selectedSpeed) {
+            case 5:
+                difficultyName = 'Easy';
+                break;
+            case 7:
+                difficultyName = 'Medium';
+                break;
+            case 10:
+                difficultyName = 'Hard';
+                break;
+        }
+    
+        // Скинути все
+        clearInterval(iStart);
+        clearInterval(iTimer);
+        oBricks = [];
+        gamePoints = 0;
+        gameTimer = 0;
+    
+        $('#difficulty-selection').addClass('hidden');
+          
+        startLoad();
+
+        iStart = setInterval(drawCanvas, 20);
+        iTimer = setInterval(countTimer, 1000);
+
+    });
 
     $('#canvas').mousemove(function(e) {
         var mouseX = e.offsetX || 0;
@@ -155,18 +209,8 @@ $(function(){
     });
 
     $('#restart-btn').click(function() {
-        // Скидуємо все
-        oBricks = [];
-        gamePoints = 0;
-        gameTimer = 0;
-    
         $('#game-over').addClass('hidden');
-        startLoad();
-    
-        iStart = setInterval(drawCanvas, 20);
-        iTimer = setInterval(countTimer, 1000);
+        $('#difficulty-selection').removeClass('hidden');
     });
 
-    iStart = setInterval(drawCanvas, 20);
-    iTimer = setInterval(countTimer, 1000);
 });
