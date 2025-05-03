@@ -10,8 +10,12 @@ document.getElementById('exit-btn').addEventListener('click', function() {
         targetUrl = 'index.html';
     }
 
-    window.location.href = targetUrl;
-
-    // Закриття вкладки (може не спрацювати в більшості браузерів через безпеку)
-    /*window.close();*/
+    // Перевіряємо, чи було відкрите нове вікно скриптом
+    if (window.opener) {
+        // Якщо вкладка відкрита через window.open() — можемо закривати
+        window.close();
+    } else {
+        // Якщо вкладка відкрита вручну або через лінк — просто переходимо
+        window.location.href = targetUrl;
+    }
 });
