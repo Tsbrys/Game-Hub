@@ -13,5 +13,5 @@ document.getElementById('exit-btn').addEventListener('click', function() {
     window.location.href = targetUrl;
 
     // Закриття вкладки (може не спрацювати в більшості браузерів через безпеку)
-    window.close();
+    /*window.close();*/
 });
