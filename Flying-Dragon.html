@@ -10,129 +10,32 @@
         <body>
             <div class="container">
                 <canvas id="canvas" width="1000" height="550"></canvas>
+            
+                <!-- Start Screen -->
+                <div id="start-screen" class="start-screen">
+                    <div class="start-content">
+                        <h1>Flying Dragon</h1>
+                        <button class="start-button" id="start-btn">Start Game</button>
+                    </div>
+                </div>
+            
+                <!-- Game Over Screen -->
+                <div id="game-over-screen" class="game-over-screen" style="display: none;">
+                    <div class="game-over-content">
+                        <h1>Game Over!</h1>
+                        <p id="final-time">Ти тримався: 0 секунд</p>
+                        <button class="restart-button" id="restart-btn">Restart Game</button>
+                    </div>
+                </div>
             </div>
-            <button class="exit-button" id="exit-btn">Exit</button> 
-            <script>
-                var $canvas, $ctx;
-                var $width, $height;
-                var $bdImage;
-                var $bdMoveX = 1045;
-                var $dragon=[];
-                var $mouseMoveX = 0;
-                var $mouseMoveY = 0;
 
-                function drawCanvas() {
-                    clear();
+            <button class="exit-button" id="exit-btn">Exit</button>
 
-                    $bdMoveX -= 4;
-                    if($bdMoveX <= 0) {
-                        $bdMoveX = 1045;
-                    }
-                    $ctx.drawImage($bdImage, 0 + $bdMoveX, 0, 1000, 940, 0, 0, $width, $height);
+            <!--System-->
+            <script src="Modules/Flying-Dragon/Scripts/System/Game.js"></script>
 
-                    $dragon.col++;
-                    if ($dragon.col >= 9) {
-                        $dragon.col = 0;
-                    }
-                    $ctx.drawImage($dragon.image, ($dragon.col*$dragon.w), ($dragon.row*$dragon.h), $dragon.w, $dragon.h, ($dragon.x - $dragon.w/2), ($dragon.y - $dragon.h/2), $dragon.w, $dragon.h);
-
-                    if ($mouseMoveX > $dragon.x) {
-                        $dragon.x += 5;
-                    }
-                    if ($mouseMoveY > $dragon.y) {
-                        $dragon.y += 5;
-                    }
-                    if ($mouseMoveX < $dragon.x) {
-                        $dragon.x -= 5;
-                    }
-                    if ($mouseMoveY < $dragon.y) {
-                        $dragon.y -= 5;
-                    }
-                }
-                function clear() {
-                    $ctx.clearRect(0, 0, $width, $height);
-                }
-                function startLoad(){
-                    $bdImage = new Image();
-                    $bdImage.src = 'Img/Games/Flying-Dragon/hell.jpg';
-                    $bdImage.onload = function() {};  
-                    
-                    var $dragonImage = new Image();
-                    $dragonImage.src = 'Img/Games/Flying-Dragon/dragon.gif';
-                    $dragonImage.onload = function() {};
-
-                    $dragon.image=$dragonImage;
-                    $dragon.x=500;
-                    $dragon.y=300;
-                    $dragon.w=75;
-                    $dragon.h=70;
-                    $dragon.row=4;
-                    $dragon.col=0;
-
-                    $mouseMoveX=500;
-                    $mouseMoveY=500;
-                }
-                $(function(){
-                    $canvas = document.getElementById('canvas');
-                    $ctx = $canvas.getContext('2d');
-
-                    $width = $canvas.width;
-                    $height = $canvas.height;
-
-                    startLoad();
-                    drawCanvas();
-
-                    $('#canvas').mousemove(function($e) {
-                        var $mouseX = $e.offsetX || 0;
-                        var $mouseY = $e.offsetY || 0;
-
-                        $mouseMoveX = $mouseX;
-                        $mouseMoveY = $mouseY;
-
-                        if ($mouseX > $dragon.x && Math.abs($mouseY-$dragon.y) < $dragon.w/2) {
-                            $dragon.row = 0;
-                        } else if ($mouseX < $dragon.x && Math.abs($mouseY-$dragon.y) < $dragon.w/2) {
-                            $dragon.row = 4;
-                        } else if ($mouseY > $dragon.y && Math.abs($mouseX-$dragon.x) < $dragon.h/2) {
-                            $dragon.row = 2;
-                        } else if ($mouseY < $dragon.y && Math.abs($mouseX-$dragon.x) < $dragon.h/2) {
-                            $dragon.row = 6;
-                        } else if ($mouseY < $dragon.y && $mouseX < $dragon.x) {
-                            $dragon.row = 5;
-                        } else if ($mouseY < $dragon.y && $mouseX > $dragon.x) {
-                            $dragon.row = 7;
-                        } else if ($mouseY > $dragon.y && $mouseX < $dragon.x) {
-                            $dragon.row = 3;
-                        } else if ($mouseY > $dragon.y && $mouseX > $dragon.x) {
-                            $dragon.row = 1;
-                        }
-                    });
-
-                    setInterval(drawCanvas, 30);
-                });
-                
-                document.getElementById('exit-btn').addEventListener('click', function() {
-                    let currentPath = window.location.pathname;
-                    let targetUrl;
-
-                    if (currentPath.includes('/Game-Hub/')) {
-                        // Якщо на GitHub Pages
-                        targetUrl = 'https://tsbrys.github.io/Game-Hub/';
-                    } else {
-                        // Якщо локально
-                        targetUrl = 'index.html';
-                    }
-
-                    // Перевіряємо, чи було відкрите нове вікно скриптом
-                    if (window.opener) {
-                        // Якщо вкладка відкрита через window.open() — можемо закривати
-                        window.close();
-                    } else {
-                        // Якщо вкладка відкрита вручну або через лінк — просто переходимо
-                        window.location.href = targetUrl;
-                    }
-                });
-            </script>
+            <!--Buttons-->
+            <script src="Modules/Flying-Dragon/Scripts/Buttons/Exit.js"></script>
         </body>
     </head>
 </html>
