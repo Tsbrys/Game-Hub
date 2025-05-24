@@ -176,3 +176,55 @@ footer p {
 .neon {
     text-shadow: 0 0 5px #00FF00, 0 0 10px #00FF00, 0 0 20px #00FF00;
 }
+
+/* Дата, час і рік */
+#datetime-display {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    color: #4caf50;
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 5px 10px;
+    border-radius: 5px;
+    z-index: 10;
+}
+
+/* Info-Button */
+#info-button {
+    position: fixed;
+    top: 70px; /* Під кнопкою теми */
+    right: 20px;
+    z-index: 10;
+    padding: 10px 15px;
+    background: #111;
+    color: white;
+    border: 2px solid #555;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+#info-button:hover {
+    background: #222;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+}
+
+/* Інформаційне поле */
+#site-info {
+    position: fixed;
+    top: 120px;
+    right: 20px;
+    width: 300px;
+    background: rgba(0, 0, 0, 0.9);
+    color: #4caf50;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+    z-index: 10;
+    display: none; /* Приховано за замовчуванням */
+}
