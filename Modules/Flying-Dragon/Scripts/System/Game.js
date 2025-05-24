@@ -190,6 +190,81 @@ $(function () {
             $dragon.row = 1;
         }
     });
+    
+    // Пасхалки
+    $('#doom-btn').on('click', function () {
+        alert('DOOM Mode: Швидкість дракона збільшена!');
+        $dragonSpeed += 5;
+    });
+
+    $('#nether-btn').on('click', function () {
+        alert('Nether Activated: Зміна фону!');
+        let newBg = new Image();
+        newBg.onload = function () {
+            $bdImage = newBg;
+        };
+        newBg.src = 'Img/Games/Flying-Dragon/nether.jpg';
+    });
+
+    $('#hades-btn').on('click', function () {
+        alert('Hades Mode: Dragon стає неуразливим!');
+        endGame = function () {}; // Блокує кінець гри
+    });
+
+    $('#diablo-btn').on('click', function () {
+        alert('Diablo Mode: Дракон вбиває все з одного дотику!');
+        $dragon.eaten = 999;
+    });
+
+    $('#hellfire-btn').on('click', function () {
+        alert('HELLFIRE: Супершвидкість + 666 овечок з неба!');
+        $dragonSpeed += 10;
+        for (let i = 0; i < 30; i++) spawnSheep();
+    });
+
+    $('.easter-button').each(function() {
+        let maxWidth = $(window).width() - $(this).outerWidth();
+        let maxHeight = $(window).height() - $(this).outerHeight();
+        let posX = Math.random() * maxWidth;
+        let posY = Math.random() * maxHeight;
+        $(this).css({ left: posX + 'px', top: posY + 'px' });
+    });
+
+    $('#reset-easter-btn').on('click', function () {
+        alert('Пасхалки скинуто!');
+
+        // Скидання швидкості
+        $dragonSpeed = 5;
+
+        // Повертаємо стандартний фон
+        let defaultBg = new Image();
+        defaultBg.onload = function () {
+            $bdImage = defaultBg;
+        };
+        defaultBg.src = 'Img/Games/Flying-Dragon/hell.jpg';
+
+        // Відновлюємо функцію endGame (у разі, якщо Hades її зламав)
+        endGame = function () {
+            clearInterval(gameInterval);
+            clearInterval(sheepInterval);
+            gameOver = true;
+            finalTime = Math.floor((Date.now() - startTime) / 1000);
+
+            let finalSpeed = $dragonSpeed.toFixed(1);
+
+            $('#final-time').html(
+                'Ти тримався: ' + finalTime + ' секунд<br>Швидкість: ' + finalSpeed + ' <br>З’їв овечок: ' + $dragon.eaten
+            );
+            $('#game-over-screen').show();
+        };
+
+        // Скидаємо лічильник з’їдених овечок (опціонально)
+        $dragon.eaten = 0;
+
+        // Оновлюємо UI одразу
+        drawCanvas();
+    });
+
 });
 
 function increaseDragonSpeed() {
