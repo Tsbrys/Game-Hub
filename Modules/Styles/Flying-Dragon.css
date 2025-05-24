@@ -119,3 +119,33 @@ body {
 .restart-button:hover {
     background-color: #1976D2;
 }
+
+/* Пасхалки */
+.easter-egg {
+    position: absolute;
+    background-color: rgba(255, 0, 0, 0.2); /* Прозорий червоний */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    z-index: 10;
+    transition: opacity 0.3s ease;
+    opacity: 0.2;
+}
+
+.easter-button {
+    position: absolute; /* щоб можна було розкидати по екрану */
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    opacity: 0.2;  /* прозорість 20% */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 15;
+}
